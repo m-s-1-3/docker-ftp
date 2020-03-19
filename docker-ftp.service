@@ -1,0 +1,14 @@
+[Unit]
+Description=FTP container
+Requires=docker.service
+After=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=/bin/bash -c "/usr/bin/docker container inspect docker_ftp >> /dev/null || /usr/bin/docker run --name=docker_ftp -d -v /data/ftp:/home/user -p 2222:22 atmoz/sftp user:password:1001"
+ExecStart=/usr/bin/docker start -a docker_ftp
+ExecStop=/usr/bin/docker stop -t 5 docker_ftp
+
+[Install]
+WantedBy=default.target
