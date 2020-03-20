@@ -1,11 +1,9 @@
 # docker-ftp
 
 1. clone this repo e.g. to the /tmp directory
-2. create the data directory for the FTP server like /data or /home/ftp or ...
+2. run install.sh with 4 parameters as root user or with sudo
+
+>>> Usage: $0 [ -d DIRECTORY ] [ -u USERNAME ] [ -p PASSWORD ] [ -i UID ]
 ```
-$ sudo mkdir -p /home/ftp
-```
-3. run install.sh with the directoy as parameter
-```
-$ sudo install.sh -d /home/ftp
+$ sudo bash install.sh -d /data/ftp -u username -p "password" -i 1001
 ```
