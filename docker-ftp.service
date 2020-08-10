@@ -6,7 +6,7 @@ After=docker.service
 [Service]
 TimeoutStartSec=0
 Restart=always
-ExecStartPre=/bin/bash -c "/usr/bin/docker container inspect docker_ftp >> /dev/null || /usr/bin/docker run --name=docker_ftp -d -v {{FTP_DIR}}:/home/{{FTP_USER}} -p 2222:22 atmoz/sftp '{{FTP_USER}}:{{FTP_PASS}}:e:{{FTP_UID}}'"
+ExecStartPre=/bin/bash -c "/usr/bin/docker container inspect docker_ftp >> /dev/null || /usr/bin/docker run --name=docker_ftp -d -v {{FTP_DIR}}:/home/{{FTP_USER}} -p {{FTP_PORT}}:22 atmoz/sftp '{{FTP_USER}}:{{FTP_PASS}}:e:{{FTP_UID}}'"
 ExecStart=/usr/bin/docker start -a docker_ftp
 ExecStop=/usr/bin/docker stop -t 5 docker_ftp
 

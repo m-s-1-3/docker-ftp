@@ -20,7 +20,7 @@ if [[ -z $(which docker) || -z $(docker --version) ]]; then
    exit_error 1
 fi
 
-while getopts ":d:u:p:i:" option
+while getopts ":d:u:p:P:i:" option
 do
     case "${option}" in
         d)
@@ -31,6 +31,9 @@ do
 	  ;;
         p)
 	  FTP_PASS=${OPTARG}
+	  ;;
+	    P)
+	  FTP_PORT=${OPTARG}
 	  ;;
   	i)
 	  FTP_UID=${OPTARG}
@@ -62,6 +65,7 @@ FTP_PASS_NCRYPT=${FTP_PASS_NCRYPT/${FTP_PASS}   /}
 sed -i "s|{{FTP_DIR}}|${FTP_DIR}|g" /etc/systemd/system/docker-ftp.service
 sed -i "s|{{FTP_USER}}|${FTP_USER}|g" /etc/systemd/system/docker-ftp.service
 sed -i "s|{{FTP_PASS}}|${FTP_PASS_NCRYPT}|g" /etc/systemd/system/docker-ftp.service
+sed -i "s|{{FTP_PORT}}|${FTP_PORT}|g" /etc/systemd/system/docker-ftp.service
 sed -i "s|{{FTP_UID}}|${FTP_UID}|g" /etc/systemd/system/docker-ftp.service
 
 systemctl enable docker-ftp.service
